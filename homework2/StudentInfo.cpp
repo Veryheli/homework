@@ -122,7 +122,7 @@ void showMenu()
         cout<<"     |-------------------------|        "<<endl;
 }
 //实现菜单的逻辑
-void Menu(Student students[6])
+void menu(Student students[6])
 {   
     bool isRun = true;//isRun作为程序运行的标志
     int ch;//记录用户的输入
@@ -167,6 +167,6 @@ void Menu(Student students[6])
 int main()
 {
     Student students[6];
-    Menu(students);
+    menu(students);
     return 0;
 }
