@@ -75,10 +75,10 @@ void findStudent(Student students[6])
         cout<<"输入错误！请重新输入！"<<endl;
         return;
     }
-        cout<<"查询信息如下"<<endl;
-        cout<<"|id\t|name\t|score1\t|score2\t|score3\t|average"<<endl;
-        cout<<"|"<<students[id - 1].id<<"\t|"<<students[id - 1].name<<"\t|"<<students[id - 1].score1<<"\t|"<<students[id - 1].score2<<"\t|"<<
-            students[id - 1].score3<<"\t|"<<students[id - 1].average<<endl;
+    cout<<"查询信息如下"<<endl;
+    cout<<"|id\t|name\t|score1\t|score2\t|score3\t|average"<<endl;
+    cout<<"|"<<students[id - 1].id<<"\t|"<<students[id - 1].name<<"\t|"<<students[id - 1].score1<<"\t|"<<students[id - 1].score2<<"\t|"<<
+        students[id - 1].score3<<"\t|"<<students[id - 1].average<<endl;
 }
 //按平均数用选择法进行排序
 void rankStudent(Student students[6])

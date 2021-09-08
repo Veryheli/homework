@@ -51,7 +51,11 @@ void solution3(int arr[],int *max1,int *max2)
 int main()
 {
     int max1 = 0,max2 = 0;
-    int arr[] = {1,2,5,3,6,9,7,4,8,10};
+    int arr[10];
+    for(int i = 0; i < 10 ;i ++)
+    {
+        cin>>arr[i];
+    }
     solution1(arr,max1,max2);
     cout<<"值传递得到得结果："<<endl;
     cout<<"最大值："<<max1<<" 第二大值为："<<max2<<endl;

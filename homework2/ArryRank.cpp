@@ -25,6 +25,15 @@ void arryRank(int a[],int lenth)
         target = &a[0];//target指针重新回到起点准备下一次遍历
     }
 }
+void showArry(int a[],int lenth)
+{
+    int i;
+    for(i = 0;i < lenth;i ++)
+    {
+        cout<<a[i]<<" ";
+    }
+    cout<<endl;
+}
 int main()
 {
     int a[10];
@@ -32,12 +41,11 @@ int main()
     {
         cin>>a[i];
     }
+    cout<<"排序前"<<endl;
+    showArry(a,10);
     arryRank(a,10);
-    for(int i = 0;i < 10 ;i ++)
-    {
-        cout<<a[i]<<" ";
-    }
-    cout<<endl;
+    cout<<"排序后："<<endl;
+    showArry(a,10);
     return 0;
 }
 

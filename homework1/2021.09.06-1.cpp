@@ -3,11 +3,8 @@
 using namespace std;
 int cacul(int a,int b)
 {
-    int result = a > b ? a : b;
-    while(result % a != 0 || result % b !=0 )
-    {
-        result++;
-    }
+    int result = a > b ? a : b;//从较大的数开始记录
+    while(result % a != 0 || result % b !=0 ) result++;
     return result;
 }
 int main()

@@ -2,13 +2,19 @@
 #include <iostream>
 #define MAX_COUNT 10
 using namespace std;
-void fun(int a[MAX_COUNT])
+void fun()
 {
+    int i;
+    int a[MAX_COUNT];
+    cout<<"请输入"<<MAX_COUNT<<"个数"<<endl;
+    for (i = 0; i < MAX_COUNT; ++i)
+    {
+        cin>>a[i];
+    }
     int count1 = 0;
     int count2 = 0;
     int count3 = 0;
     int count4 = 0;
-    int i;
     for(i = 0;i < MAX_COUNT; i++)
     {
         if(a[i] == 1)
@@ -28,13 +34,7 @@ void fun(int a[MAX_COUNT])
 }
 int main()
 {
-    int i;
-    int a[MAX_COUNT];
-    cout<<"请输入"<<MAX_COUNT<<"个数"<<endl;
-    for (i = 0; i < MAX_COUNT; ++i) {
-        cin>>a[i];
-    }
-    fun(a);
+    fun();
     return 0;
 }
 
