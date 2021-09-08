@@ -1,0 +1,3 @@
+/home/chenrenhao/cpp/homework/homework4/build/CMakeFiles/rebuild_cache.dir
+/home/chenrenhao/cpp/homework/homework4/build/CMakeFiles/edit_cache.dir
+/home/chenrenhao/cpp/homework/homework4/build/CMakeFiles/Tarject.dir

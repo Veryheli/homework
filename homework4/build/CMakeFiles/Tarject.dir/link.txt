@@ -1,0 +1,1 @@
+/usr/bin/c++ CMakeFiles/Tarject.dir/src/main.cpp.o -o Tarject 

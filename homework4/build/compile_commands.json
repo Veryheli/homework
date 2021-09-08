@@ -1,0 +1,7 @@
+[
+{
+  "directory": "/home/chenrenhao/cpp/homework/homework4/build",
+  "command": "/usr/bin/c++  -I/home/chenrenhao/cpp/homework/homework4/includes  -o CMakeFiles/Tarject.dir/src/main.cpp.o -c /home/chenrenhao/cpp/homework/homework4/src/main.cpp",
+  "file": "/home/chenrenhao/cpp/homework/homework4/src/main.cpp"
+}
+]
