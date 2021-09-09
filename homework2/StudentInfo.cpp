@@ -75,10 +75,12 @@ void findStudent(Student students[6])
         cout<<"输入错误！请重新输入！"<<endl;
         return;
     }
+    Student *p = students;//通过指针p遍历数组进行查找
+    while(p->id != id)  p++;
     cout<<"查询信息如下"<<endl;
     cout<<"|id\t|name\t|score1\t|score2\t|score3\t|average"<<endl;
-    cout<<"|"<<students[id - 1].id<<"\t|"<<students[id - 1].name<<"\t|"<<students[id - 1].score1<<"\t|"<<students[id - 1].score2<<"\t|"<<
-        students[id - 1].score3<<"\t|"<<students[id - 1].average<<endl;
+    cout<<"|"<<p->id<<"\t|"<<p->name<<"\t|"<<p->score1<<"\t|"<<p->score2<<"\t|"<<
+        p->score3<<"\t|"<<p->average<<endl;
 }
 //按平均数用选择法进行排序
 void rankStudent(Student students[6])
