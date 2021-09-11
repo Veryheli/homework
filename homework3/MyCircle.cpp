@@ -25,11 +25,11 @@ float MyCircle::getR()
 }
 float MyCircle::getCir()
 {
-    return 2*PI*r;
+    return 2*PI*this->r;
 }
 float MyCircle::getArea()
 {
-    return PI*r*r;
+    return PI*this->r*this->r;
 }
 int main()
 {
