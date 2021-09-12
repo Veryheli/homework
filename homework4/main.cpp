@@ -73,6 +73,11 @@ void readInfo(vector<Stock> &s)
         t.setPrice(price);
         t.buyStock(count);
         t.update();
+        if(!s.empty()&&t.getName() == s.begin()->getName()&&t.getTotalCount() == s.begin()->getTotalCount()&& t.getPrice() == s.begin()->getPrice())
+        {
+            cout<<"不可重复录入数据！"<<endl;
+            return;
+        }
         s.push_back(t);
     }
     cout<<"成功读取信息！"<<endl;
