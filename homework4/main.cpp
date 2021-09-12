@@ -4,6 +4,7 @@
 #include <algorithm>
 #include <fstream>
 #define FILENAME "data.txt"
+bool haveReadInfo = false;//记录是否读取过文件
 using namespace std;
 //需要实现的功能：
 //1、菜单界面
@@ -56,32 +57,35 @@ void saveInfo(vector<Stock> &s)
 //从文件中读取信息
 void readInfo(vector<Stock> &s)
 {
-    ifstream f;
-    f.open(FILENAME,ios::in);
-    if(!f.is_open())
+    if(!haveReadInfo)
     {
-        cout<<"文件打开失败！"<<endl;
-        return;
-    }
-    string name;
-    double price;
-    int count;
-    double totalPrice;
-    while(f>>name&&f>>price&&f>>count)
-    {
-        Stock t(name);
-        t.setPrice(price);
-        t.buyStock(count);
-        t.update();
-        if(!s.empty()&&t.getName() == s.begin()->getName()&&t.getTotalCount() == s.begin()->getTotalCount()&& t.getPrice() == s.begin()->getPrice())
+        ifstream f;
+        f.open(FILENAME,ios::in);
+        if(!f.is_open())
         {
-            cout<<"不可重复录入数据！"<<endl;
+            cout<<"文件打开失败！"<<endl;
             return;
         }
-        s.push_back(t);
+        string name;
+        double price;
+        int count;
+        double totalPrice;
+        while(f>>name&&f>>price&&f>>count)
+        {
+            Stock t(name);
+            t.setPrice(price);
+            t.buyStock(count);
+            t.update();
+            s.push_back(t);
+        }
+        cout<<"成功读取信息！"<<endl;
+        f.close();
+        haveReadInfo = true;
     }
-    cout<<"成功读取信息！"<<endl;
-    f.close();
+    else
+    {
+        cout<<"不可重复录入数据！"<<endl;
+    }
 }
 void menuLogic(vector<Stock> &s)
 {
