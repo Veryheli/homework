@@ -1,5 +1,6 @@
 #include <iostream>
 using namespace std;
+#define STUDENTS_COUNT 6
 struct Student
 {
     int id = -1;//将id默认标记为-1用于判断数据是否初始化
@@ -10,26 +11,26 @@ struct Student
     float average;
 };
 //求成绩平均分的函数
-void average(Student students[6])
+void average(Student students[STUDENTS_COUNT])
 {
-    for(int i = 0;i < 6;i ++)
+    for(int i = 0;i < STUDENTS_COUNT;i ++)
     {
         students[i].average = (students[i].score1 + students[i].score2 +students[i].score3)/3;
     }
 }
 //输入数据的函数
-void inputMessage(Student students[6])
+void inputMessage(Student students[STUDENTS_COUNT])
 {
     if(students[0].id != -1)//第一次录入信息后不能重复录入
     {
         cout<<"已录入学生信息，不可重复录入！"<<endl;
         return;
     }
-    cout<<"输入6个学生信息"<<endl;
+    cout<<"输入"<<STUDENTS_COUNT<<"个学生信息"<<endl;
     cout<<"每输入一项后按TAB分隔"<<endl;
-    for(int i = 0;i < 6;i++)
+    for(int i = 0;i < STUDENTS_COUNT;i++)
     {
-        //默认按id为1,2,3,4,5,6来输入
+        //默认按id为1,2,3,4,5,STUDENTS_COUNT来输入
         students[i].id = i+1;
         cout<<"|第"<<i + 1<<"个学生信息"<<endl;
         cout<<"|id\tname\tscore1\tscore2\tscore3\t"<<endl;
@@ -41,7 +42,7 @@ void inputMessage(Student students[6])
     cout<<"成功录入学生信息！"<<endl;
 }
 //输出学生信息的函数
-void showMessage(Student students[6])
+void showMessage(Student students[STUDENTS_COUNT])
 {
     //用id是否为-1 来判断数据是否初始化
     if(students[0].id == -1)
@@ -50,7 +51,7 @@ void showMessage(Student students[6])
         return;
     }
     cout<<"|id\t|name\t|score1\t|score2\t|score3\t|average"<<endl;
-    for(int i = 0;i < 6;i++)
+    for(int i = 0;i < STUDENTS_COUNT;i++)
     {
         cout<<"|"<<students[i].id<<"\t|"<<students[i].name<<"\t|"<<students[i].score1<<"\t|"<<
             students[i].score2<<"\t|"<<students[i].score3<<"\t|"<<students[i].average<<endl;
@@ -58,7 +59,7 @@ void showMessage(Student students[6])
 
 }
 //按id查找学生的函数
-void findStudent(Student students[6])
+void findStudent(Student students[STUDENTS_COUNT])
 {
     //先判断数据是否初始化
     if(students[0].id == -1)
@@ -70,7 +71,7 @@ void findStudent(Student students[6])
     cout<<"请输入你要查询的学生的id:";
     cin>>id;
     //根据用户输入的id输出对应的信息
-    if(id > 6 || id < 1)
+    if(id > STUDENTS_COUNT || id < 1)
     {
         cout<<"输入错误！请重新输入！"<<endl;
         return;
@@ -83,7 +84,7 @@ void findStudent(Student students[6])
         p->score3<<"\t|"<<p->average<<endl;
 }
 //按平均数用选择法进行排序
-void rankStudent(Student students[6])
+void rankStudent(Student students[STUDENTS_COUNT])
 {
    Student *p,temp;//p 用来记录分数最小的学生
    int i,j;
@@ -91,7 +92,7 @@ void rankStudent(Student students[6])
    for(i = 0,j = 0; i < 5;i ++)
    {
        //遍历出分数最小的学生
-        while(j < 6 - i)
+        while(j < STUDENTS_COUNT - i)
         {
             if(p->average > students[j].average)
                 p = &students[j];
@@ -99,11 +100,11 @@ void rankStudent(Student students[6])
         }
         j = 0;
         //将分数最小的学生交换到数组的末尾
-        if(p != &students[6 - i -1])
+        if(p != &students[STUDENTS_COUNT - i -1])
         {
             temp = *p;
-            *p = students[6 - i -1];
-            students[6 - i -1] = temp;
+            *p = students[STUDENTS_COUNT - i -1];
+            students[STUDENTS_COUNT - i -1] = temp;
         }
         //从头开始遍历
         p = &students[0];
@@ -124,7 +125,7 @@ void showMenu()
         cout<<"     |-------------------------|        "<<endl;
 }
 //实现菜单的逻辑
-void menu(Student students[6])
+void menu(Student students[STUDENTS_COUNT])
 {   
     bool isRun = true;//isRun作为程序运行的标志
     int ch;//记录用户的输入
@@ -168,7 +169,7 @@ void menu(Student students[6])
 }
 int main()
 {
-    Student students[6];
+    Student students[STUDENTS_COUNT];
     menu(students);
     return 0;
 }
