@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <fstream>
 #define FILENAME "data.txt"
-bool haveReadInfo = false;//记录是否读取过文件
 using namespace std;
 //需要实现的功能：
 //1、菜单界面
@@ -55,7 +54,7 @@ void saveInfo(vector<Stock> &s)
     cout<<"文件已写入！"<<endl;
 }
 //从文件中读取信息
-void readInfo(vector<Stock> &s)
+void readInfo(vector<Stock> &s,bool &haveReadInfo)
 {
     if(!haveReadInfo)
     {
@@ -87,9 +86,89 @@ void readInfo(vector<Stock> &s)
         cout<<"不可重复录入数据！"<<endl;
     }
 }
+void buyStock(vector<Stock> &s)
+{ 
+    int flag = 0;
+    string name;
+    double price;
+    int count;
+    cout<<"输入你要买的股票所属的公司名：";
+    cin>>name;
+    //先遍历容器判断用户输入的公司是否存在,并用flag标记
+    for(vector<Stock>::iterator it = s.begin();it != s.end();it ++)
+    {
+        if(!it->getName().compare(name))//两个string相等时返回0
+        {
+            cout<<"请输入要买多少股票:";
+            cin>>count;
+            it->buyStock(count);
+            flag = 1;//一旦查找到匹配的公司名，就把flag标记为1
+        }
+    }
+    if(flag != 1)
+    {
+        cout<<"输入股票的价格：";
+        cin>>price;
+        cout<<"输入要买多少股票:";
+        cin>>count;
+        Stock *a = new Stock(name);
+        a->buyStock(count);
+        a->setPrice(price);
+        s.push_back(*a);
+    }
+}
+void sellStock(vector<Stock>&s)
+{
+    int flag = 0;
+    int count;
+    string name;
+    cout<<"输入你要卖出哪种股票:";                                     
+    cin>>name;                                                         
+  //先遍历容器判断用户输入的公司是否存在,并用flag标记                  
+    for(vector<Stock>::iterator it = s.begin();it != s.end();it ++)    
+    {                                                                  
+        if(!it->getName().compare(name))//两个string相等时返回0        
+        {                                                              
+            cout<<"请输入要卖多少股票:";                               
+            cin>>count;                                                
+            it->sellStock(count);                                      
+            flag = 1;//一旦查找到匹配的公司名，就把flag标记为1         
+            break;                                                     
+        }                                                              
+    }                                                                  
+    if(flag != 1)                                                      
+    {                                                                  
+        cout<<"输入有误！"<<endl;                                      
+    }                                                                  
+}
+void changeStock(vector<Stock>&s)
+{
+    string name;
+    double price;
+    int flag;
+   cout<<"输入你要修改哪种股票:";                                  
+   cin>>name;                                                      
+ //先遍历容器判断用户输入的公司是否存在,并用flag标记               
+   for(vector<Stock>::iterator it = s.begin();it != s.end();it ++) 
+   {                                                               
+       if(!it->getName().compare(name))//两个string相等时返回0     
+       {                                                           
+           cout<<"请输入修改后的价格:";                            
+           cin>>price;                                             
+           it->setPrice(price);                                    
+           flag = 1;//一旦查找到匹配的公司名，就把flag标记为1      
+           break;                                                  
+       }                                                           
+   }                                                               
+   if(flag != 1)                                                   
+   {                                                               
+       cout<<"输入有误！"<<endl;                                   
+   }                                                               
+}
 void menuLogic(vector<Stock> &s)
 {
     showMenu();
+    bool haveReadInfo = false;//记录是否读取过文件
     int ch;//记录用户输入
     bool isRun = true;//记录程序运行状态
     int flag = 0;
@@ -99,13 +178,13 @@ void menuLogic(vector<Stock> &s)
     while(isRun)
     {
         cout<<"------------------------"<<endl;
-        cout<<"输入你的选择：";
+        cout<<"输入你的选择(输入7显示菜单)：";
         cin>>ch;
         switch(ch)
         {
             case 1:
                 {
-                    readInfo(s);
+                    readInfo(s,haveReadInfo);
                     break;
                 }
             case 2:
@@ -115,78 +194,17 @@ void menuLogic(vector<Stock> &s)
                 }
             case 3:
                 {
-                    cout<<"输入你要买的股票所属的公司名：";
-                    cin>>name;
-                    //先遍历容器判断用户输入的公司是否存在,并用flag标记
-                    for(vector<Stock>::iterator it = s.begin();it != s.end();it ++)
-                    {
-                        if(!it->getName().compare(name))//两个string相等时返回0
-                        {
-                            cout<<"请输入要买多少股票:";
-                            cin>>count;
-                            it->buyStock(count);
-                            flag = 1;//一旦查找到匹配的公司名，就把flag标记为1
-                            break;
-                        }
-                    }
-                    if(flag != 1)
-                    {
-                        cout<<"输入股票的价格：";
-                        cin>>price;
-                        cout<<"输入要买多少股票:";
-                        cin>>count;
-                        Stock *a = new Stock(name);
-                        a->buyStock(count);
-                        a->setPrice(price);
-                        s.push_back(*a);
-                    }
-                    flag = 0;//将flag回调为0
+                    buyStock(s);
                     break;
                 }
             case 4:
                 {
-                    cout<<"输入你要卖出哪种股票:";
-                    cin>>name;
-                  //先遍历容器判断用户输入的公司是否存在,并用flag标记
-                    for(vector<Stock>::iterator it = s.begin();it != s.end();it ++)
-                    {
-                        if(!it->getName().compare(name))//两个string相等时返回0
-                        {
-                            cout<<"请输入要卖多少股票:";
-                            cin>>count;
-                            it->sellStock(count);
-                            flag = 1;//一旦查找到匹配的公司名，就把flag标记为1
-                            break;
-                        }
-                    }
-                    if(flag != 1)
-                    {
-                        cout<<"输入有误！"<<endl;
-                    }
-                    flag = 0;
+                    sellStock(s);                 
                     break;
                 }
             case 5:
                 {  
-                    cout<<"输入你要修改哪种股票:";
-                    cin>>name;
-                  //先遍历容器判断用户输入的公司是否存在,并用flag标记
-                    for(vector<Stock>::iterator it = s.begin();it != s.end();it ++)
-                    {
-                        if(!it->getName().compare(name))//两个string相等时返回0
-                        {
-                            cout<<"请输入修改后的价格:";
-                            cin>>price;
-                            it->setPrice(price);
-                            flag = 1;//一旦查找到匹配的公司名，就把flag标记为1
-                            break;
-                        }
-                    }
-                    if(flag != 1)
-                    {
-                        cout<<"输入有误！"<<endl;
-                    }
-                    flag = 0;
+                    changeStock(s);
                     break;
                 }
             case 6:
