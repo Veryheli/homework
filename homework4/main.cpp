@@ -54,37 +54,30 @@ void saveInfo(vector<Stock> &s)
     cout<<"文件已写入！"<<endl;
 }
 //从文件中读取信息
-void readInfo(vector<Stock> &s,bool &haveReadInfo)
+void readInfo(vector<Stock> &s)
 {
-    if(!haveReadInfo)
+    s.clear();
+    ifstream f;
+    f.open(FILENAME,ios::in);
+    if(!f.is_open())
     {
-        ifstream f;
-        f.open(FILENAME,ios::in);
-        if(!f.is_open())
-        {
-            cout<<"文件打开失败！"<<endl;
-            return;
-        }
-        string name;
-        double price;
-        int count;
-        double totalPrice;
-        while(f>>name&&f>>price&&f>>count)
-        {
-            Stock t(name);
-            t.setPrice(price);
-            t.buyStock(count);
-            t.update();
-            s.push_back(t);
-        }
-        cout<<"成功读取信息！"<<endl;
-        f.close();
-        haveReadInfo = true;
+        cout<<"文件打开失败！"<<endl;
+        return;
     }
-    else
+    string name;
+    double price;
+    int count;
+    double totalPrice;
+    while(f>>name&&f>>price&&f>>count)
     {
-        cout<<"不可重复录入数据！"<<endl;
+        Stock t(name);
+        t.setPrice(price);
+        t.buyStock(count);
+        t.update();
+        s.push_back(t);
     }
+    cout<<"成功读取信息！"<<endl;
+    f.close();
 }
 void buyStock(vector<Stock> &s)
 { 
@@ -168,7 +161,6 @@ void changeStock(vector<Stock>&s)
 void menuLogic(vector<Stock> &s)
 {
     showMenu();
-    bool haveReadInfo = false;//记录是否读取过文件
     int ch;//记录用户输入
     bool isRun = true;//记录程序运行状态
     int flag = 0;
@@ -184,7 +176,7 @@ void menuLogic(vector<Stock> &s)
         {
             case 1:
                 {
-                    readInfo(s,haveReadInfo);
+                    readInfo(s);
                     break;
                 }
             case 2:
@@ -220,6 +212,11 @@ void menuLogic(vector<Stock> &s)
             case 0:
                 {
                     isRun = false;
+                    cout<<"退出程序前是否保存数据？(输入y或者Y保存)"<<endl;
+                    if(getchar() == 'y'&&getchar() == 'Y')
+                    {
+                        saveInfo(s);
+                    }
                     cout<<"程序已退出！"<<endl;
                     break;
                 }
@@ -231,8 +228,8 @@ void menuLogic(vector<Stock> &s)
 }
 int main()
 {
-    vector<Stock> *s = new vector<Stock>;
-    menuLogic(*s);
+    vector<Stock> s;
+    menuLogic(s);
     return 0;
 }
 
