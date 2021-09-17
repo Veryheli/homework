@@ -9,36 +9,13 @@
 using namespace std;
 #define FILENAME "book.txt"//储存联系人的文件名
 #define MAX_COUNT 100//设定通讯录的最大容量
-//联系人类，包含的数据有姓名和电话号码,函数只有简单的set和get方法
-class Person
+//联系人结构体，包含的数据有姓名和电话号码
+struct Person
 {
-public:
-    Person(){};
-    Person(string name,string phoneNumber)
-    {
-        this->name = name;
-        this->phoneNumber = phoneNumber;
-    }
-    void setName(string name)
-    {
-        this->name = name;
-    }
-    string getName()
-    {
-        return this->name;
-    }
-    void setPhoneNumber(string phoneNumber)
-    {
-        this->phoneNumber = phoneNumber;
-    }
-    string getPhoneNumber()
-    {
-        return this->phoneNumber;
-    }
-private:
     string name;
     string phoneNumber;
 };
+
 //通讯录类，负责管理联系人类
 class Book
 {
@@ -58,9 +35,12 @@ public:
                 string name;
                 string phoneNumber;
                 f>>name>>phoneNumber;
-                this->data[i].setName(name);
-                this->data[i].setPhoneNumber(phoneNumber);
-                this->personCount++;
+                if(!name.empty()&&!phoneNumber.empty())
+                {
+                    this->data[i].name = name;
+                    this->data[i].phoneNumber = phoneNumber;
+                    this->personCount++;
+                }
             }
             f.close();
         }
@@ -82,11 +62,11 @@ public:
         int resultcount = 0;
         while(i < this->personCount)
         {
-            if(this->data[i].getName() == target||this->data[i].getPhoneNumber() == target)
+            if(this->data[i].name == target||this->data[i].phoneNumber == target)
             {
                 resultcount ++;
                 cout<<"第"<<resultcount<<"条结果如下:"<<endl;
-                cout<<"姓名："<<this->data[i].getName()<<"\t电话号码："<<this->data[i].getPhoneNumber()<<endl;
+                cout<<"姓名："<<this->data[i].name<<"\t电话号码："<<this->data[i].phoneNumber<<endl;
             }
             i++;
         }
@@ -103,7 +83,7 @@ public:
         cin>>name;
         for(int i = 0; i < this->personCount;i ++)
         {
-            if(name == this->data[i].getName())
+            if(name == this->data[i].name)
             {
                 cout<<"联系人已存在！"<<endl;
                 return;
@@ -113,23 +93,23 @@ public:
         cin>>phoneNumber;
         for(int i = 0;i < this->personCount ;i ++)
         {
-            if(phoneNumber == this->data[i].getPhoneNumber())
+            if(phoneNumber == this->data[i].phoneNumber)
             {
-                cout<<"该号码和联系人："<<this->data[i].getName()<<" 的号码相同！"<<endl;
+                cout<<"该号码和联系人："<<this->data[i].name<<" 的号码相同！"<<endl;
                 return;
             }
         }
-        this->data[this->personCount].setName(name);
-        this->data[this->personCount].setPhoneNumber(phoneNumber);
+        this->data[this->personCount].name = name;
+        this->data[this->personCount].phoneNumber = phoneNumber;
         this->personCount++;
     }
     void showBook()
     {
         int i = 0;
-        cout<<"|姓名\t\t|号码\t\t|"<<endl;
+        cout<<"|姓名\t\t| 号码\t\t|"<<endl;
         for(i = 0;i < this->personCount;i ++)
         {
-            cout<<"|"<<this->data[i].getName()<<"\t\t|"<<" "<<this->data[i].getPhoneNumber()<<endl;
+            cout<<"|"<<this->data[i].name<<"\t\t|"<<" "<<this->data[i].phoneNumber<<"\t|"<<endl;
         }
     }
     void save()
@@ -137,10 +117,11 @@ public:
         fstream f(FILENAME,ios::out);
         if(f)
         {
-            for(int i = 0;i < this->personCount;i ++)
+            for(int i = 0;i < this->personCount - 1;i ++)
             {
-                f<<this->data[i].getName()<<" "<<this->data[i].getPhoneNumber()<<endl;
+                f<<this->data[i].name<<" "<<this->data[i].phoneNumber<<endl;
             }
+            f<<this->data[this->personCount - 1].name<<" "<<this->data[this->personCount - 1].phoneNumber;
         }
         else
         {
@@ -160,14 +141,13 @@ private:
 };
 void showMenu()//显示菜单的函数
 {
-    cout<<"|-----------------------------------|"<<endl;
-    cout<<"|---------1.显示通讯录--------------|"<<endl;
-    cout<<"|---------2.查找联系人--------------|"<<endl;
-    cout<<"|---------3.添加联系人--------------|"<<endl;
-    cout<<"|---------4.显示菜单----------------|"<<endl;
-    cout<<"|---------0.退出程序----------------|"<<endl;
-    cout<<"|-----------------------------------|"<<endl;
-    cout<<"|-----------------------------------|"<<endl;
+    cout<<"[===================================]"<<endl;
+    cout<<"[---------1.显示通讯录--------------]"<<endl;
+    cout<<"[---------2.查找联系人--------------]"<<endl;
+    cout<<"[---------3.添加联系人--------------]"<<endl;
+    cout<<"[---------4.显示菜单----------------]"<<endl;
+    cout<<"[---------0.退出程序----------------]"<<endl;
+    cout<<"[===================================]"<<endl;
 
 }
 void menuLogic(Book &b)
@@ -211,7 +191,6 @@ int main()
 {
     Book b;
     b.initialize();
-    cout<<b.getPersonCount()<<endl;
     menuLogic(b);
     return 0;
 }

@@ -6,6 +6,7 @@ Stock::Stock()
 {
 
 }
+
 Stock::Stock(string companyName)
 {
     this->companyName = companyName;
