@@ -176,6 +176,7 @@ void menuLogic(Book &b)
                }
         case 4:{
                    showMenu();
+                   break;
                }
         case 0:{
                    isRun = false;
