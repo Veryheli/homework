@@ -213,7 +213,9 @@ void menuLogic(vector<Stock> &s)
                 {
                     isRun = false;
                     cout<<"退出程序前是否保存数据？(输入y或者Y保存)"<<endl;
-                    if(getchar() == 'y'&&getchar() == 'Y')
+                    char res = 0;
+                    cin>>res;
+                    if(res == 'Y'||res == 'y')
                     {
                         saveInfo(s);
                     }
