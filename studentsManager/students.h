@@ -1,6 +1,11 @@
 #ifndef STUDENT_H
 #define STUDENT_H
-#define FILENAME "data.txt"
+#ifdef _WIN32
+#define FILENAME "data_Windows.txt"
+#endif
+#ifdef __linux
+#define FILENAME "data_linux.txt"
+#endif
 #include <iostream>
 #include <string>
 #include <fstream>

@@ -73,6 +73,7 @@ void fixData(){
         std::cin>>_buffer._c_plus_plus;
         _buffer._total = _buffer._math + _buffer._english + _buffer._c_plus_plus;
         *it = _buffer;
+        cout<<"修改成功！"<<endl;
    }
 }
 void search(){

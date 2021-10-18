@@ -19,11 +19,11 @@ Students * Students::getInstance(){
 * Description:      
 *****************************************************************************/
 void Students::show(){
-    std::cout<<"学号"<<"\t"<<"姓名"<<"\t"<<"性别"<<"\t"<<"数学"<<"\t"<<"英语"
-        <<"\t"<<"c++"<<"\t"<<"总分"<<std::endl;
+    std::cout<<"学号"<<"\t\t"<<"姓名"<<"\t\t"<<"性别"<<"\t\t"<<"数学"<<"\t\t"<<"英语"
+        <<"\t\t"<<"c++"<<"\t\t"<<"总分"<<std::endl;
     for (auto i = _data.begin(); i != _data.end(); ++i) {
-        std::cout<<i->_id<<"\t"<<i->_name<<"\t"<<i->_gender<<"\t"<<i->_math<<"\t"<<i->_english
-            <<"\t"<<i->_c_plus_plus<<"\t"<<i->_total<<std::endl;
+        std::cout<<i->_id<<"\t\t"<<i->_name<<"\t\t"<<i->_gender<<"\t\t"<<i->_math<<"\t\t"<<i->_english
+            <<"\t\t"<<i->_c_plus_plus<<"\t\t"<<i->_total<<std::endl;
     }
 }
 /******************************************************************************
@@ -61,7 +61,7 @@ void Students::saveInFile(){
     std::fstream f;
     f.open(FILENAME,std::ios::out);
     for (auto i = _data.begin(); i != _data.end(); ++i) {
-        f<<i->_id<<"\t"<<i->_name<<"\t"<<i->_gender<<"\t"<<i->_math<<"\t"<<i->_english<<"\t"<<i->_c_plus_plus<<"\t"<<i->_total<<"\n";
+        f<<i->_id<<"\t"<<i->_name<<"\t\t"<<i->_gender<<"\t"<<i->_math<<"\t"<<i->_english<<"\t"<<i->_c_plus_plus<<"\t"<<i->_total<<"\n";
     }
     std::cout<<"保存成功！"<<std::endl;
     f.close();
@@ -70,13 +70,11 @@ void Students::saveInFile(){
 * Function:         void Students::rankById
 * Description:      按学号排序
 *****************************************************************************/
-struct idCompare{
-    bool operator()(Student a,Student b){
-        return a._id < b._id;
-    }
-};
+bool idCompare(Student a,Student b){
+    return a._id < b._id;
+}
 void Students::rankById(){
-    std::sort(_data.begin(),_data.end(),idCompare());
+    std::sort(_data.begin(),_data.end(),idCompare);
     std::cout<<"按学号排序后结果如下:"<<std::endl;
     show();
 }
@@ -84,13 +82,11 @@ void Students::rankById(){
 * Function:         void Students::rankByScore
 * Description:      按成绩排序
 *****************************************************************************/
-struct scoreCompare{
-    bool operator()(Student a,Student b){
-        return a._total > b._total;
-    }
-};
+bool scoreCompare(Student a,Student b){
+    return a._total > b._total;
+}
 void Students::rankByScore(){
-    std::sort(_data.begin(),_data.end(),scoreCompare());   
+    std::sort(_data.begin(),_data.end(),scoreCompare);   
     std::cout<<"按成绩排序后结果如下:"<<std::endl;
     show();
 }
