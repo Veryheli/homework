@@ -8,9 +8,7 @@
 #endif
 #include <iostream>
 #include <string>
-#include <fstream>
 #include <vector>
-#include <algorithm>
 /* 学生包含的信息：姓名、性别、学号、三门科目的成绩和总成绩*/
 struct Student{
     int _id;

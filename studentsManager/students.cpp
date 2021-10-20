@@ -7,6 +7,8 @@
 
 #include "students.h"
 #include <cstdlib>
+#include <fstream>
+#include <algorithm>
 Students * Students::_instance = nullptr;
 Students * Students::getInstance(){
     if(_instance == nullptr){
