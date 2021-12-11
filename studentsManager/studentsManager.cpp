@@ -104,55 +104,82 @@ void menu(){
         cin>>ch;
         switch(ch){
             case 1:{
+                       system("clear");
                        _students->show();
+                       drawMenu();
                        break;
                    }
             case 2:{
+                       system("clear");
                        addStudent();
+                       drawMenu();
                        break;
                    }
             case 3:{
+                       system("clear");
+                       _students->show();
                        deleteStudent();
+                       drawMenu();
                        break;
                    }
             case 4:{
+                       system("clear");
+                       _students->show();
                        fixData();
+                       drawMenu();
                        break;
                    }
             case 5:{
+                       system("clear");
+                       _students->show();
                        search();
+                       drawMenu();
                        break;
                    }
             case 6:{
+                       system("clear");
                        _students->rankById();
+                       drawMenu();
                        break;
                    }
             case 7:{
+                       system("clear");
                        _students->rankByScore();
+                       drawMenu();
                        break;
                    }
             case 8:{
+                       system("clear");
                        average();
+                       drawMenu();
                        break;
                    }
             case 9:{
+                       system("clear");
                        _students->saveInFile();
+                       drawMenu();
                        break;
                    }
             case 10:{
+                        system("clear");
                         drawMenu();
                         break;
                     }
             case 0:{
+                        system("clear");
                         return;
                    }
-            default:
-                   cout<<"输入错误！"<<endl;
+            default:{
+                       system("clear");
+                       drawMenu();
+                       cout<<"输入错误！"<<endl;
+                    }
         }
     }
 }
 void run(){
     menu();
+    system("clear");
     cout<<"退出前是否保存？(输入y保存，输入其他选项不保存)"<<endl;
     char ch = 'y';
     cin>>ch;
